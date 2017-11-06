@@ -1,4 +1,4 @@
-#Historical Akka Data Saver
+# Historical Akka Data Saver
 
 Getting commonalized data from websocket stream, save it to Google BigTable.
 

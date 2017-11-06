@@ -48,21 +48,21 @@ object HelloWorld extends App {
 
 // [START scanning_all_rows]
 // Now scan across all rows.
-	val scan = new Scan()
-
-	println("Scan for all greetings:")
-	val scanner = table.getScanner(scan)
-  val scannerIterator = scanner.iterator()
-  
-  while (scannerIterator.hasNext()){
-    val valueBytes = scannerIterator.next().getValue(COLUMN_FAMILY_NAME, COLUMN_NAME)
-    println('\t' + Bytes.toString(valueBytes))
-  }
+//	val scan = new Scan()
+//
+//	println("Scan for all greetings:")
+//	val scanner = table.getScanner(scan)
+//  val scannerIterator = scanner.iterator()
+//  
+//  while (scannerIterator.hasNext()){
+//    val valueBytes = scannerIterator.next().getValue(COLUMN_FAMILY_NAME, COLUMN_NAME)
+//    println('\t' + Bytes.toString(valueBytes))
+//  }
 			  
   
-  println("Delete Table")
-	admin.disableTable(table.getName())
-	admin.deleteTable(table.getName())
+//  println("Delete Table")
+//	admin.disableTable(table.getName())
+//	admin.deleteTable(table.getName())
 
 
   //

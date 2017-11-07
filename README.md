@@ -9,9 +9,11 @@ Entry point : com.mbcu.hda.flow.ToDb
 1. Set application credentials in environment variable.
 Add or export environment variable `GOOGLE_APPLICATION_CREDENTIALS` to point at service account credentials file (.json).
 Get this file from :
+
 https://console.cloud.google.com/apis/credentials/serviceaccountkey?project=projectID&authuser=1
 
 2. Set instance id and project id in VM execution arguments.
+
 ```-Dbigtable.projectID=<projectID> -Dbigtable.instanceID=<instanceID>```
 
 ## HBase Shell

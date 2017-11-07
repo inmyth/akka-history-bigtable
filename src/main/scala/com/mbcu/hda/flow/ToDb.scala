@@ -17,8 +17,8 @@ import com.mbcu.hda.client.Utils
 object ToDb extends App {
   val projectId = Utils.requiredProperty("bigtable.projectID")
   val instanceId = Utils.requiredProperty("bigtable.instanceID")
-
   val helper = new BigTableHelper(projectId, instanceId)
+  println("HBase connection obtained")
 
   implicit val system = ActorSystem()
   implicit val materializer = ActorMaterializer()
@@ -32,10 +32,9 @@ object ToDb extends App {
   val messageSink: Sink[Message, NotUsed] =
     Flow[Message]
       .map(message => {
-        println(s"Received text message: [$message]")
+        println(s"Saving: [$message]")
         helper.write(message.toString())  
       })
-      .map(m => println("go to db"))
       .to(Sink.ignore)
 
   //    val aFlow: Flow[Message, NotUsed] = Flow[Message]
@@ -55,7 +54,8 @@ object ToDb extends App {
     }
   }
 
-  ws ! TextMessage.Strict("{\r\n  \"id\": 1,\r\n  \"command\": \"subscribe\",\r\n  \"accounts\": [],\r\n  \"streams\": [\r\n    \"server\",\r\n    \"ledger\"\r\n  ]\r\n}")
-  ws ! TextMessage.Strict("{\r\n  \"id\": \"Example watch Bitstamp's hot wallet\",\r\n  \"command\": \"subscribe\",\r\n  \"accounts\": [\"rrpNnNLKrartuEqfJGpqyDwPj1AFPg9vn1\"]\r\n}\r\n")
-
+//  ws ! TextMessage.Strict("{\r\n  \"id\": 1,\r\n  \"command\": \"subscribe\",\r\n  \"accounts\": [],\r\n  \"streams\": [\r\n    \"server\",\r\n    \"ledger\"\r\n  ]\r\n}")
+  ws ! TextMessage.Strict("{\r\n  \"id\": \"Example watch Mrripple hot wallet\",\r\n  \"command\": \"subscribe\",\r\n  \"accounts\": [\"rB3gZey7VWHYRqJHLoHDEJXJ2pEPNieKiS\"]\r\n}\r\n")
+//  scala.io.StdIn.readLine()
+//  binding.flatMap(_.unbind()).andThen({ case _ => system.terminate() })
 }

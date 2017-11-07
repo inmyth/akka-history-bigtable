@@ -13,7 +13,9 @@ lazy val root = (project in file(".")).
       "com.typesafe.akka" %% "akka-http-spray-json" % akkaHttpVersion,
       "com.typesafe.akka" %% "akka-http-xml"        % akkaHttpVersion,
       "com.typesafe.akka" %% "akka-stream"          % akkaVersion,
-      "com.google.cloud.bigtable" % "bigtable-hbase-1.x" % "1.0.0-pre4", 
+      "com.google.cloud.bigtable" % "bigtable-hbase-1.x" % "1.0.0-pre4",
+      
+ 
       "com.typesafe.akka" %% "akka-http-testkit"    % akkaHttpVersion % Test,
       "com.typesafe.akka" %% "akka-testkit"         % akkaVersion     % Test,
       "com.typesafe.akka" %% "akka-stream-testkit"  % akkaVersion     % Test,

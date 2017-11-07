@@ -16,18 +16,6 @@ class BigTableHelper(projectId: String, instanceId: String) {
 
   val connection = BigtableConfiguration.connect(projectId, instanceId)
   
-  case class Event(msg: String)
-  def persistEvent(e: Event)(implicit ec: ExecutionContext): Future[Unit] = {
-    println(s"persisting $e")
-    val rowKey = System.currentTimeMillis();
-    val table = connection.getTable(TableName.valueOf(TABLE_NAME))
-    val put = new Put(Bytes.toBytes(rowKey))
-    put.addColumn(COLUMN_FAMILY_NAME, COLUMN_NAME, Bytes.toBytes(e.toString()))
-    table put put
-    Future {}
-  }
-
-
   def write(data: String) = {
 
     val rowKey = System.currentTimeMillis();

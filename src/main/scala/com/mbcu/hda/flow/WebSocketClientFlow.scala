@@ -11,17 +11,24 @@ import akka.NotUsed
 import akka.stream.OverflowStrategy
 import akka.actor.ActorRef
 import akka.stream.ClosedShape
+import play.api.libs.json.{ Json, JsValue }
+
 
 object WebSocketClientFlow extends App{
   implicit val system = ActorSystem()
   implicit val materializer = ActorMaterializer()
   import system.dispatcher
   val command = "{\r\n  \"id\": \"Example watch Mrripple hot wallet\",\r\n  \"command\": \"subscribe\",\r\n  \"accounts\": [\"rB3gZey7VWHYRqJHLoHDEJXJ2pEPNieKiS\"]\r\n}\r\n"
-  
+  val filterKeyword = "engine_result"  
 
   
-  
- 
+//    def isValidRequest(request: JsValue): Boolean = {
+//    val validCommand = Try(commandList.contains((request \ "command").as[String])).getOrElse(false)
+//
+//
+//    validCommand || validTransaction
+//  }
+// 
   
   
   
@@ -29,6 +36,9 @@ object WebSocketClientFlow extends App{
   val webSocketFlow = Http().webSocketClientFlow(req)
   
   val messageSource : Source[Message, ActorRef ] = Source.actorRef[TextMessage.Strict](10, OverflowStrategy.fail)
+  
+  val filterFlow : Flow[Message, Message, NotUsed] = Flow[Message]
+        .filter(_.toString().contains(filterKeyword))
  
   val messageSink: Sink[Message, NotUsed] =
     Flow[Message]
@@ -43,8 +53,8 @@ object WebSocketClientFlow extends App{
         message
       })
       
-  val messageSource2 : Source[Message, ActorRef ] = Source.actorRef[TextMessage.Strict](10, OverflowStrategy.fail)
-  val webSocketFlow2 = Http().webSocketClientFlow(req)
+
+      
 
   // send this as a message over the WebSocket
   
@@ -67,6 +77,7 @@ object WebSocketClientFlow extends App{
     messageSource
       .viaMat(webSocketFlow)(Keep.both) // keep the materialized Future[WebSocketUpgradeResponse]
 //      .zipWith(webSocketFlow2)((num, idx) => idx + num)
+      .viaMat(filterFlow)(Keep.left)
       .viaMat(dbFlow)(Keep.left)
       .toMat(messageSink)(Keep.both) // also keep the Future[Done]
       

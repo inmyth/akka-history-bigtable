@@ -39,6 +39,8 @@ object ToDb extends App {
 
   //    val aFlow: Flow[Message, NotUsed] = Flow[Message]
   //      .map(message -> println())
+      
+  
 
   val ((ws, upgradeResponse), closed) =
     messageSource

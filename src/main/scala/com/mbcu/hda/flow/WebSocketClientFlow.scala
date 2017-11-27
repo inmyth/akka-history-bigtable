@@ -60,14 +60,14 @@ object WebSocketClientFlow extends App{
   
 //  val source = Source.single(TextMessage(command))
   
-//  val g = RunnableGraph.fromGraph(GraphDSL.create() { implicit b =>
-//    import GraphDSL.Implicits._
-//  
-//    messageSource ~> webSocketFlow ~> messageSink
-//   
-//    ClosedShape
-//    
-//  })
+  val g = RunnableGraph.fromGraph(GraphDSL.create() { implicit b =>
+    import GraphDSL.Implicits._
+  
+    messageSource ~> webSocketFlow ~> messageSink
+   
+    ClosedShape
+    
+  })
 
   // the materialized value is a tuple with
   // upgradeResponse is a Future[WebSocketUpgradeResponse] that

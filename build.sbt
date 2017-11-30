@@ -5,7 +5,7 @@ lazy val root = (project in file(".")).
   settings(
     inThisBuild(List(
       organization    := "com.mbcu",
-      scalaVersion    := "2.11.8"
+      scalaVersion    := "2.12.3"
     )),
     name := "akka-historical-bigtable",
     libraryDependencies ++= Seq(
